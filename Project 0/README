@@ -1,0 +1,42 @@
+Justin Huh
+004480345
+TA: Diyu Zhou
+
+Project 0 README:
+
+lab0.c:
+This file is the C source code for the project. It copies its standard input to its standard output 
+by reading from file descriptor 0 and writing to file descriptor 1. My approach was to use a dynamically 
+allocated buffer that reads in the file one byte at a time and reallocates more memory if necessary. 
+The complete buffer is then printed with one write call at the end. If any options are used 
+(--input, --output, --segfault, --catch), the behavior of the program will change. --input will cause the 
+program to read from the specified file and similarly --output will cauase the program to write to the 
+specified file.  --segfault will force a segfault by attempting to write to a null pointer. --catch will 
+setup a signal handler that catches a SIGSEGV signal and prints a custom error message. To implement these options
+I used the getopt_long function.
+
+Makefile:
+My Makefile contains:
+a default case which builds lab0 with gcc
+a dist case which creates a tarball of the necessary files including the C file, Makefile, README and the screenshots
+a check case which tests the program with 5 different tests:
+	-tests the program with valid --input and --output files to check for a return value of 0
+	-tests the program with valid --input and --output files and compares them to see if the input was correctly copied
+		to the output
+	-tests the program with the --input option with a non-readable file to check for a return value of 1
+	-tests the program with the --output option with a non-writeable file to check for a return value of 2
+	-tests the program with the --segfault and --catch options to check for a return value of 3
+	Finally we check to see if any of these tests failed by looking at the log file.
+a clean case which removes the lab0 executable, and any .txt files created by the Makefile
+
+README:
+A file that contains the description of all the deliverable files for this project along with relevant information
+
+backtrace.png:
+This picture is the screenshot taken of the stack backtrace done using gdb for the segmentation fault that occurs
+when using the --segfault option for the program
+
+null.png: 
+This picture is the screenshot taken of the inpection of the pointer with value NULL used in the program to force 
+the segmentation fault if the --segfault option is used
+

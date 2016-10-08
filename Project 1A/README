@@ -1,0 +1,27 @@
+Justin Huh
+004480345
+TA: Diyu Zhou
+
+lab1a.c
+This file contains the source code for the program. The first part of the program handles the --shell option.
+ 
+The next part of the program corresponds to part 1 of the spec and reads from STDIN and writes to STDOUT until the
+ escape character ^D is entered from the terminal. 
+
+The next part of the program corresponds to part 2 of the spec and passes input/output between the terminal and
+a shell.
+	Firstly, I fork a new process. I have the child process redirect IO and use execlp to have the process
+ run /bin/bash. The parent process then creates a thread which reads input from the shell pipe and writes it
+to STDOUT. The other thread reads input from the keyboard and echoes it to STDOUT and the shell.
+
+I also have a signal handler that exits with code 1 if it detects a SIGPIPE. 
+
+Makefile
+This is the makefile for this project and has three targets:
+default: This compiles and creates the executable lab1a using gcc and the -pthread and -g options
+clean: This removes any files that weren't in the directory initially such as the built executable and the
+	tarball
+dist: This builds the tarball with the necessary delivarable files
+
+README
+This file describes each the deliverable files
